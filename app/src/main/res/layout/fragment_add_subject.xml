@@ -1,0 +1,138 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="myapps.wycoco.com.yourfaceseemsattendance.AddSubjectFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:text="Subject Name"
+            android:textStyle="bold"
+            android:layout_alignLeft="@+id/subjectName1"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/tw__composer_black"
+            android:textSize="16sp"
+            android:id="@+id/subjectLabel"/>
+        
+        <EditText
+            android:id="@+id/subjectName1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="15"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:inputType="textPersonName"
+            android:text=""
+            android:layout_below="@+id/subjectLabel"/>
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Schedule"
+            android:textStyle="bold"
+            android:id="@+id/scheduleLabel"
+            android:layout_below="@+id/subjectName1"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:textColor="@color/tw__composer_black"/>
+
+        <TextView
+            android:id="@+id/dayLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/subjectLabel"
+            android:layout_below="@+id/scheduleLabel"
+            android:layout_marginTop="20dp"
+            android:text="Room"
+            android:textColor="@color/tw__composer_black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+       <EditText
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_below="@+id/dayLabel"
+           android:ems="15"
+           android:id="@+id/subjectRoom"
+           android:layout_alignLeft="@+id/subjectLabel"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:layout_below="@+id/subjectRoom"
+            android:id="@+id/timeLabel"
+            android:textColor="@color/tw__composer_black"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
+            android:layout_alignLeft="@+id/subjectLabel"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/subjectTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/subjectLabel"
+            android:layout_below="@+id/timeLabel"
+            android:ems="7" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/tw__composer_black"
+            android:text="Date"
+            android:layout_marginRight="150dp"
+            android:layout_below="@+id/subjectRoom"
+            android:layout_alignBaseline="@+id/timeLabel"
+            android:gravity="right"
+            android:id="@+id/dateLabel"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dateLabel"
+            android:layout_alignLeft="@+id/dateLabel"
+            android:ems="7"
+            android:id="@+id/subjectDate"/>
+
+        <TimePicker
+            android:id="@+id/timePicker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <DatePicker
+            android:id="@+id/datePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/subjectLabel"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"/>
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/subjectDate"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:id="@+id/btnPublish"
+            android:text="Publish Subject"/>
+    </RelativeLayout>
+</FrameLayout>

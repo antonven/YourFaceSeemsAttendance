@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "972987565031",
+    "firebase_url": "https://yourfaceseemsattendance-517c5.firebaseio.com",
+    "project_id": "yourfaceseemsattendance-517c5",
+    "storage_bucket": "yourfaceseemsattendance-517c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972987565031:android:36e93dddc2999647",
+        "android_client_info": {
+          "package_name": "myapps.wycoco.com.yourfaceseemsattendance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972987565031-uiiqtdrr8jrs5s40nhg2q7k5s4oshp0v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "myapps.wycoco.com.yourfaceseemsattendance",
+            "certificate_hash": "6af7786d815112f4a4907f2e03ee5c18f3dd3c0a"
+          }
+        },
+        {
+          "client_id": "972987565031-a1dlgbqekgm7mclkk3drn0v1icl063rg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhMfrJmm9j_j5F_i1_sI6wfhaF9LdfKME"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "972987565031-a1dlgbqekgm7mclkk3drn0v1icl063rg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
