@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,15 +31,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.security.auth.Subject;
-
 import myapps.wycoco.com.yourfaceseemsattendance.Adapters.SubjectsAdapter;
 import myapps.wycoco.com.yourfaceseemsattendance.Models.SubjectModel;
 
@@ -48,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int RC_SIGN_IN = 1;
 
     private String mUsername;
-
+    SubjectModel sm;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDataReference;
     private FirebaseAuth mFirebaseAuth;
@@ -56,11 +51,13 @@ public class MainActivity extends AppCompatActivity {
     private ChildEventListener mChildEventListener;
     private SubjectsAdapter subjectsAdapter;
 
+
     TextView welcomeTxt, nameTxt;
     FloatingActionButton floatingButton;
     FragmentManager fm;
-    List<SubjectModel> subjects;
+    ArrayList<SubjectModel> subjects;
     RecyclerView recyclerview;
+    SubjectsAdapter mAdapter;
 
 
 
@@ -80,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDataReference = mDatabase.getReference().child("user");
+//        mroot = new Firebase("https://yourfaceseemsattendance-517c5.firebaseio.com/Subject");
 
 
 //        welcomeTxt = (TextView)findViewById(R.id.welcomeTxt);
@@ -92,25 +90,52 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AddSubjectFragment add = new AddSubjectFragment();
-                getSupportFragmentManager().beginTransaction().add(R.id.frame1, add).commit();
+                getFragmentManager().
+                     beginTransaction().add(R.id.frame1, add).commit();
             }
         });
 
         //recyclerview for the subjects
-        recyclerview = (RecyclerView)findViewById(R.id.recyclerView);
-        recyclerview.setHasFixedSize(true);
-        recyclerview.setLayoutManager(new LinearLayoutManager(this));
+        mDataReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if(dataSnapshot.exists()){
+                    sm = dataSnapshot.getValue(SubjectModel.class);
+                    subjects.add(sm);
+
+                    mAdapter = new SubjectsAdapter(getApplicationContext(), subjects);
+                    recyclerview = (RecyclerView)findViewById(R.id.recyclerView);
+                    RecyclerView.LayoutManager lm = new LinearLayoutManager(getApplicationContext());
+                    recyclerview.setLayoutManager(lm);
+                    recyclerview.setItemAnimator(new DefaultItemAnimator());
+                    recyclerview.setAdapter(mAdapter);
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
         mDataReference = mDatabase.getReference("Subject");
-
-        FirebaseRecyclerAdapter<SubjectModel, SubjectsAdapter.ViewHolder> firebaseRecyclerAdapter =
-                new FirebaseRecyclerAdapter<SubjectModel, SubjectsAdapter.ViewHolder>(SubjectModel.class, R.layout.item_subject, SubjectsAdapter.ViewHolder.class, mDataReference) {
-                    @Override
-                    protected void populateViewHolder(SubjectsAdapter.ViewHolder viewHolder, SubjectModel model, int position) {
-                        viewHolder.setName(model.getSubjectName());
-                    }
-                };
-        recyclerview.setAdapter(firebaseRecyclerAdapter);
 
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -121,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 if(user != null){
                     //user is signed in
                     onSignedInInitialize(user.getDisplayName());
+                    mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
                 }
                 else{
                     //user is signed out
@@ -194,10 +220,9 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
-                        .setIsSmartLockEnabled(false)
                         .setProviders(Arrays.asList(
                                 new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                                new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+                                new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build())).setTheme(R.style.AppTheme)
                         .build(),
                 RC_SIGN_IN);
     }
