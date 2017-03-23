@@ -6,19 +6,8 @@
     android:background="@color/ampm_text_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="myapps.wycoco.com.yourfaceseemsattendance.MainActivity">
+    tools:context="myapps.wycoco.com.yourfaceseemsattendance.LoginActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="368dp"
-        android:layout_height="423dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="7dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -36,4 +25,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView"
         app:srcCompat="@drawable/add" />
+
 </FrameLayout>

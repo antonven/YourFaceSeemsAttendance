@@ -1,25 +1,19 @@
 package myapps.wycoco.com.yourfaceseemsattendance;
 
 
-import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.android.datetimepicker.date.DatePickerDialog;
-import com.android.datetimepicker.time.TimePickerDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import myapps.wycoco.com.yourfaceseemsattendance.Models.SubjectModel;
 
@@ -51,7 +44,7 @@ public class AddSubjectFragment extends Fragment{
     ArrayList<SubjectModel> subjects;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_subject, container,false);
@@ -59,7 +52,7 @@ public class AddSubjectFragment extends Fragment{
         final Calendar calendar = Calendar.getInstance();
 
         database = FirebaseDatabase.getInstance();
-        reference = database.getReference().child("Subject");
+        reference = database.getReference().child("Class");
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
         subjectName = (EditText)view.findViewById(R.id.subjectName);
@@ -72,7 +65,6 @@ public class AddSubjectFragment extends Fragment{
 
 
         subjectTimeStart.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
                 DialogFragment dateFrag = new DatePickerFragment();
@@ -98,8 +90,10 @@ public class AddSubjectFragment extends Fragment{
                 SubjectModel sm = new SubjectModel(subName, roomNum, subteacher, tStart, tEnd, date, skey);
                 reference.push().setValue(sm);
 
-                startActivity(new Intent(view.getContext(), MainActivity.class));
-
+//                FragmentManager fm = getFragmentManager();
+//                ClassesFragment cm = new ClassesFragment();
+//                fm.beginTransaction().replace(R.id.frame3, cm).addToBackStack("hey").commit();
+                startActivity(new Intent(getActivity(), TeacherActivity.class));
             }
         });
 

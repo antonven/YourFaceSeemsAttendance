@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    tools:context="myapps.wycoco.com.yourfaceseemsattendance.AttendeesFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:elevation="10dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/attendeePicture"
+            android:src="@drawable/meme"/>
+
+        <TextView
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/attendeeName"
+            android:text="Mr. Bean Beansoft"
+            android:layout_toRightOf="@+id/attendeePicture"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/attendeeTime"
+            android:text="8:00 am"
+            android:textSize="16sp"
+            android:layout_toRightOf="@id/attendeeName"
+            android:layout_centerInParent="true"/>
+        </RelativeLayout>
+    </FrameLayout>
+
+
+</RelativeLayout>

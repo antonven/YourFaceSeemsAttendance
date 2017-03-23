@@ -62,7 +62,7 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHo
 
         private TextView subName, subRoom, subTeacher, subStart, subEnd, subDate, subKey;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
 
             subName = (TextView) itemView.findViewById(R.id.subjectName);
@@ -76,7 +76,7 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    
                 }
             });
 

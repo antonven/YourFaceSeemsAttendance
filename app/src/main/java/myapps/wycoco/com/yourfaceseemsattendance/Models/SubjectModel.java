@@ -22,6 +22,9 @@ public class SubjectModel {
         mContext = context;
     }
 
+    public SubjectModel() {
+    }
+
     public SubjectModel(String subjectName, String subjectRoom, String subjectTeacher, String subjectTimeStart, String subjectTimeEnd, String subjectDate, String subjectKey) {
         this.subjectName = subjectName;
         this.subjectRoom = subjectRoom;
