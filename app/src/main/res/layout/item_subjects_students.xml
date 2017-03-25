@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    app:cardUseCompatPadding="true"
+    android:padding="20dp"
+    android:id="@+id/classCard"
+    android:layout_margin="10dp"
+    android:elevation="10dp"
+    tools:context="myapps.wycoco.com.yourfaceseemsattendance.TeacherSubject">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/subjectName"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_marginTop="20px"
+                android:text="Name of Subject"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/subjectTeacher"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/subjectName"
+                android:layout_marginLeft="30px"
+                android:layout_marginTop="10px"
+                android:text="Teacher" />
+
+            <TextView
+                android:id="@+id/subjectRoom"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/subjectName"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="10px"
+                android:layout_toRightOf="@+id/subjectTeacher"
+                android:text="BCL 5" />
+
+            <TextView
+                android:id="@+id/subjectDate"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/subjectName"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="20dp"
+                android:text="Friday"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:id="@+id/timeStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/subjectTeacher"
+                android:layout_alignLeft="@+id/subjectDate"
+                android:layout_below="@+id/subjectDate"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@+id/subjectRoom"
+                android:text="8:00" />
+
+            <TextView
+                android:id="@+id/toLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/timeStart"
+                android:layout_marginLeft="6dp"
+                android:layout_toRightOf="@+id/timeStart"
+                android:text="to" />
+
+            <TextView
+                android:id="@+id/timeEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/subjectTeacher"
+                android:layout_below="@+id/subjectDate"
+                android:layout_marginLeft="6dp"
+                android:layout_toRightOf="@+id/toLabel"
+                android:text="8:00" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/enrolkeylabel"
+                android:text="Enrollment key: "
+                android:layout_alignLeft="@id/subjectTeacher"
+                android:layout_marginTop="20px"
+                android:layout_below="@id/subjectTeacher"/>
+
+            <TextView
+                android:id="@+id/subjectKey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subjectTeacher"
+                android:layout_toRightOf="@id/enrolkeylabel"
+                android:layout_alignBaseline="@+id/enrolkeylabel"
+                android:layout_marginLeft="10px"
+                android:layout_marginTop="10px"
+                android:password="true"
+                android:text="Password" />
+
+        </RelativeLayout>
+
+
+    </FrameLayout>
+</android.support.v7.widget.CardView>
