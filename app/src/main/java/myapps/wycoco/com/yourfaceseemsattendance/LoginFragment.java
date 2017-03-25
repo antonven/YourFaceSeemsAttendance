@@ -1,7 +1,6 @@
 package myapps.wycoco.com.yourfaceseemsattendance;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,10 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 import myapps.wycoco.com.yourfaceseemsattendance.Models.TeacherModel;
-import myapps.wycoco.com.yourfaceseemsattendance.StudentsSide.ClassesListFragment;
 import myapps.wycoco.com.yourfaceseemsattendance.StudentsSide.StudentsActivity;
-
-import static myapps.wycoco.com.yourfaceseemsattendance.R.drawable.student;
 
 /**
  * Created by dell on 3/25/2017.
@@ -108,7 +104,7 @@ public class LoginFragment extends Fragment {
                 mReferenceTeacher.push().setValue(user.getDisplayName());
 
                 Log.e("AW", "onAuthStateChanged:signed_in:" + user.getUid());
-                startActivity(new Intent(getActivity(), TeacherActivity.class));
+                startActivity(new Intent(getActivity(), FaceDetectorActivity.class));
 
                 mReferenceTeacher.addChildEventListener(new ChildEventListener() {
                     @Override
