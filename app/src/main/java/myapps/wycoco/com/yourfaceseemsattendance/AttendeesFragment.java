@@ -3,9 +3,17 @@ package myapps.wycoco.com.yourfaceseemsattendance;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+
+import myapps.wycoco.com.yourfaceseemsattendance.Adapters.AttendeesAdapter;
+import myapps.wycoco.com.yourfaceseemsattendance.Models.StudentModel;
 
 
 /**
@@ -13,7 +21,9 @@ import android.view.ViewGroup;
  */
 public class AttendeesFragment extends Fragment {
 
-
+    RecyclerView recView;
+    ArrayList<StudentModel> sm = new ArrayList<>();
+    AttendeesAdapter mAdapter;
     public AttendeesFragment() {
         // Required empty public constructor
     }
@@ -23,7 +33,22 @@ public class AttendeesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.recyclerview, container, false);
+        View view = inflater.inflate(R.layout.fragment_attendees, container, false);
+
+
+
+        recView = (RecyclerView)view.findViewById(R.id.recyclerViewAttendee);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recView.setLayoutManager(layoutManager);
+        recView.setItemAnimator(new DefaultItemAnimator());
+
+        mAdapter = new AttendeesAdapter(getActivity(), sm);
+        recView.setAdapter(mAdapter);
+
+        mAdapter.notifyDataSetChanged();
+
+
+        return view;
     }
 
 }

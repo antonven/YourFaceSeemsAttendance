@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="myapps.wycoco.com.yourfaceseemsattendance.StudentsSide.StudentsActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:tabIndicatorColor="@color/blue"
+            android:id="@+id/tabLayout"
+            app:tabTextColor="@color/blue">
+        </android.support.design.widget.TabLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/frameClasses"
+            android:layout_below="@+id/tabLayout">
+
+
+        </FrameLayout>
+
+
+
+
+    </RelativeLayout>
+
+</FrameLayout>

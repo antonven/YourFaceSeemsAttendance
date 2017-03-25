@@ -19,7 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".TeacherSubject" />
-        <activity android:name=".TeacherActivity"></activity>
+        <activity android:name=".TeacherActivity" />
+        <activity android:name=".StudentsSide.StudentsActivity"/>
+
     </application>
 
 </manifest>

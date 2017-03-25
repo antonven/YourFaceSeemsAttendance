@@ -1,7 +1,6 @@
 package myapps.wycoco.com.yourfaceseemsattendance.Adapters;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,7 @@ import myapps.wycoco.com.yourfaceseemsattendance.R;
  * Created by dell on 3/24/2017.
  */
 
-public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHolder> {
+public class AttendeesAdapter extends RecyclerView.Adapter<AttendeesAdapter.ViewHolder> {
 
     Context mContext;
     FirebaseDatabase firebaseDatabase;
@@ -35,15 +34,20 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ViewHo
 
 
     @Override
-    public StudentsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AttendeesAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_attendees, parent, false);
         ViewHolder v = new ViewHolder(view);
 
         return v;
     }
 
+    public AttendeesAdapter(Context mContext, ArrayList<StudentModel> sm) {
+        this.mContext = mContext;
+        this.sm = sm;
+    }
+
     @Override
-    public void onBindViewHolder(StudentsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(AttendeesAdapter.ViewHolder holder, int position) {
 
         firebaseDatabase = firebaseDatabase.getInstance();
         mDatabaseReference = firebaseDatabase.getReference();

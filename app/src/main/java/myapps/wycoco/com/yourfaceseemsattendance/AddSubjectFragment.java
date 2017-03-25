@@ -36,7 +36,7 @@ public class AddSubjectFragment extends Fragment{
     }
     FirebaseDatabase database;
     DatabaseReference reference;
-
+    int year, month, day;
     EditText subjectName, subjectTimeStart,  subjectRoom, subjectKey, subjectTimeEnd;
     TextView subjectDate;
     Button addSubject;
@@ -64,6 +64,9 @@ public class AddSubjectFragment extends Fragment{
         addSubject = (Button)view.findViewById(R.id.addSubjectBtn);
 
 
+
+
+
         subjectTimeStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,12 +90,10 @@ public class AddSubjectFragment extends Fragment{
                 String tEnd = subjectTimeEnd.getText().toString();
                 String date = subjectDate.getText().toString();
 
+                //add tanan values sa firebase
                 SubjectModel sm = new SubjectModel(subName, roomNum, subteacher, tStart, tEnd, date, skey);
                 reference.push().setValue(sm);
 
-//                FragmentManager fm = getFragmentManager();
-//                ClassesFragment cm = new ClassesFragment();
-//                fm.beginTransaction().replace(R.id.frame3, cm).addToBackStack("hey").commit();
                 startActivity(new Intent(getActivity(), TeacherActivity.class));
             }
         });
@@ -100,5 +101,7 @@ public class AddSubjectFragment extends Fragment{
 
         return view;
     }
+
+
 
 }

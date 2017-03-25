@@ -7,6 +7,19 @@ package myapps.wycoco.com.yourfaceseemsattendance.Models;
 public class TeacherModel {
 
     private String teacherName;
-    private String teacherUsername;
-    private String teacherPassword;
+
+    public TeacherModel(String teacherName) {
+        this.teacherName = teacherName;
+    }
+
+    public TeacherModel() {
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
+    }
 }

@@ -3,6 +3,7 @@ package myapps.wycoco.com.yourfaceseemsattendance;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,8 @@ import java.util.Arrays;
 
 import myapps.wycoco.com.yourfaceseemsattendance.Adapters.SubjectsAdapter;
 import myapps.wycoco.com.yourfaceseemsattendance.Models.SubjectModel;
+import myapps.wycoco.com.yourfaceseemsattendance.StudentsSide.ClassesListFragment;
+import myapps.wycoco.com.yourfaceseemsattendance.StudentsSide.StudentsActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -60,10 +64,11 @@ public class LoginActivity extends AppCompatActivity {
     Firebase mroot;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_teacher);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
@@ -72,12 +77,10 @@ public class LoginActivity extends AppCompatActivity {
         Firebase.setAndroidContext(getApplicationContext());
 
 
-
         mDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         mroot = new Firebase("https://yourfaceseemsattendance-517c5.firebaseio.com/Subject");
-        mDataUser = mDatabase.getReference("Teacher");
-        mDataReference = mDatabase.getReference("Subject");
+        mDataUser = mDatabase.getReference().child("Teacher");
 
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -85,17 +88,19 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                if(user != null && user.getUid() != mDataUser.getKey()){
+                if(user != null ){
                     //user is signed in
-                    mDataUser.push().setValue(user.getDisplayName());
-                    Toast.makeText(LoginActivity.this, "Welcome " + user.getDisplayName() + " !", Toast.LENGTH_SHORT).show();
-                    Log.e("AW", "onAuthStateChanged:signed_in:" + user.getUid());
-                    startActivity(new Intent(LoginActivity.this, TeacherActivity.class));
+//                    mDataUser.push().setValue(user.getDisplayName());
+//                    Toast.makeText(LoginActivity.this, "Welcome " + user.getDisplayName() + " !", Toast.LENGTH_SHORT).show();
+//                    Log.e("AW", "onAuthStateChanged:signed_in:" + user.getUid());
+                    fm = getFragmentManager();
+                    fm.beginTransaction().add(R.id.frame6, new LoginFragment()).commit();
+
                 }
-                else if(user != null && user.getUid() == mDataUser.getKey()){
-                    Toast.makeText(LoginActivity.this, "Shit  " + user.getDisplayName() + " !", Toast.LENGTH_SHORT).show();
-                    Log.e("AW", "onAuthStateChanged:signed_in:" + user.getUid());
-                }
+//                else if(user != null && user.getDisplayName().equals(mDataUser.child("Teacher").getKey())){
+//                    Toast.makeText(LoginActivity.this, "Shit  " + user.getDisplayName() + " !", Toast.LENGTH_SHORT).show();
+//                    Log.e("AW", "onAuthStateChanged:signed_in:" + user.getUid());
+//                }
                 else{
                     //user is signed out
                     onSignedOutCleanup();
@@ -103,39 +108,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
-
-
-
-
-
-
-        mChildEventListener = new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Toast.makeText(LoginActivity.this, "key "+  dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-        mDataReference.addChildEventListener(mChildEventListener);
 
 
     }
@@ -148,6 +120,24 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -168,26 +158,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
-    }
-
-    //this is the code for signing in + getting the name and put it into the firebase.
 
 
     //

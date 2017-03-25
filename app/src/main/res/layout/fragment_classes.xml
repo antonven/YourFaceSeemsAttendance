@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     android:id="@+id/frame2"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="myapps.wycoco.com.yourfaceseemsattendance.ClassesFragment">
+    tools:context="myapps.wycoco.com.yourfaceseemsattendance.StudentsSide.ClassesFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:id="@+id/rl1"
         >
 
@@ -21,20 +21,24 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="7dp"
         />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            app:backgroundTint="@android:color/background_light"
+            app:elevation="5dp"
+            app:fabSize="auto"
+            app:srcCompat="@drawable/add" />
+
     </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_below="@+id/rl1"
-        android:clickable="true"
-        app:backgroundTint="@android:color/background_light"
-        app:elevation="5dp"
-        app:fabSize="normal"
-        app:srcCompat="@drawable/add" />
+
 
 </RelativeLayout>

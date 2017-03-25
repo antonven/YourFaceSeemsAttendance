@@ -1,7 +1,8 @@
-package myapps.wycoco.com.yourfaceseemsattendance;
+package myapps.wycoco.com.yourfaceseemsattendance.StudentsSide;
 
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.app.Fragment;
@@ -10,14 +11,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,6 +33,7 @@ import java.util.ArrayList;
 
 import myapps.wycoco.com.yourfaceseemsattendance.Adapters.SubjectsAdapter;
 import myapps.wycoco.com.yourfaceseemsattendance.Models.SubjectModel;
+import myapps.wycoco.com.yourfaceseemsattendance.R;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -55,7 +64,7 @@ public class ClassesFragment extends Fragment {
     TextView welcomeTxt, nameTxt;
     FloatingActionButton floatingButton;
     FragmentManager fm;
-    ArrayList<SubjectModel> subjects;
+    ArrayList<SubjectModel> subjects = new ArrayList<>();
     RecyclerView recyclerview;
     SubjectsAdapter mAdapter;
     Firebase mroot;
@@ -65,81 +74,69 @@ public class ClassesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_classes, container, false);
+        final View view = inflater.inflate(R.layout.fragment_attendees, container, false);
         Firebase.setAndroidContext(getApplicationContext());
 
 
 
         mDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mroot = new Firebase("https://yourfaceseemsattendance-517c5.firebaseio.com/Subject");
-        mDataReference = mDatabase.getReference("Subject");
+        mDataReference = mDatabase.getReference("Class");
 
 
-        floatingButton = (FloatingActionButton)view.findViewById(R.id.floatingActionButton);
-        floatingButton.setOnClickListener(new View.OnClickListener() {
+
+        recyclerview = (RecyclerView)view.findViewById(R.id.recyclerViewAttendee);
+        RecyclerView.LayoutManager lm = new LinearLayoutManager(getApplicationContext());
+        recyclerview.setLayoutManager(lm);
+        recyclerview.setItemAnimator(new DefaultItemAnimator());
+
+        mAdapter = new SubjectsAdapter(getApplicationContext(), subjects);
+        recyclerview.setAdapter(mAdapter);
+
+
+        //fragment_attendees for the subjects
+        mDataReference.addChildEventListener(new ChildEventListener() {
+
             @Override
-            public void onClick(View view) {
-                AddSubjectFragment add = new AddSubjectFragment();
-                getFragmentManager().
-                        beginTransaction().add(R.id.frame2, add).addToBackStack("hey").commit();
-            }
-        });
-
-
-        //recyclerview for the subjects
-        mroot.addChildEventListener(new com.firebase.client.ChildEventListener() {
-            @Override
-            public void onChildAdded(com.firebase.client.DataSnapshot dataSnapshot, String s) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if(dataSnapshot.exists()){
                     sm = dataSnapshot.getValue(SubjectModel.class);
-                    subjects.add(sm);
-                    Log.e("dd",""+sm.getSubjectName());
 
-                    start(view);
+                        subjects.add(sm);
+                        Log.e("dd",""+sm.getSubjectName());
+                        mAdapter.notifyDataSetChanged();
+
 
                 }
             }
 
             @Override
-            public void onChildChanged(com.firebase.client.DataSnapshot dataSnapshot, String s) {
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
             }
 
             @Override
-            public void onChildRemoved(com.firebase.client.DataSnapshot dataSnapshot) {
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
 
             }
 
             @Override
-            public void onChildMoved(com.firebase.client.DataSnapshot dataSnapshot, String s) {
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
             }
 
             @Override
-            public void onCancelled(FirebaseError firebaseError) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
+
+
         });
-
-
 
         return view;
     }
 
 
-    public void start(View rootView){
 
-
-        recyclerview = (RecyclerView)rootView.findViewById(R.id.recyclerView);
-        RecyclerView.LayoutManager lm = new LinearLayoutManager(rootView.getContext());
-        recyclerview.setLayoutManager(lm);
-        recyclerview.setItemAnimator(new DefaultItemAnimator());
-
-        mAdapter = new SubjectsAdapter(rootView.getContext(), subjects);
-        Log.e("dd",""+sm.getSubjectKey());
-        recyclerview.setAdapter(mAdapter);
-
-    }
 
 }
