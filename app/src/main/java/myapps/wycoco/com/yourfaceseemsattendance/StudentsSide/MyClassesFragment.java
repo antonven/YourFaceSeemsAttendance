@@ -24,7 +24,9 @@ import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
+import myapps.wycoco.com.yourfaceseemsattendance.Adapters.MyClassesAdapter;
 import myapps.wycoco.com.yourfaceseemsattendance.Adapters.SubjectsAdapter;
+import myapps.wycoco.com.yourfaceseemsattendance.Models.MyClassModel;
 import myapps.wycoco.com.yourfaceseemsattendance.Models.SubjectModel;
 import myapps.wycoco.com.yourfaceseemsattendance.R;
 
@@ -40,11 +42,12 @@ public class MyClassesFragment extends Fragment {
     private DatabaseReference mDataReference;
     private FirebaseAuth mFirebaseAuth;
 
-
+    MyClassModel mc;
+    ArrayList<MyClassModel> classes = new ArrayList<>();
     ArrayList<SubjectModel> subjects = new ArrayList<>();
     RecyclerView recyclerview;
-    SubjectsAdapter mAdapter;
-    String key;
+    MyClassesAdapter mAdapter;
+    String key, subjectName, teacherName, subjectDate, subjectStart, subjectEnd,  subjectRoom;
 
     public MyClassesFragment() {
         // Required empty public constructor
@@ -71,59 +74,44 @@ public class MyClassesFragment extends Fragment {
         recyclerview.setLayoutManager(lm);
         recyclerview.setItemAnimator(new DefaultItemAnimator());
 
-        mAdapter = new SubjectsAdapter(getApplicationContext(), subjects);
+        mAdapter = new MyClassesAdapter(getApplicationContext(), classes);
         recyclerview.setAdapter(mAdapter);
 
-        if(key != null)
+//        if(getArguments() != null)
 
-        {
-            FirebaseUser user = mFirebaseAuth.getCurrentUser();
-            key = getArguments().getString("enrollKey");
-            Toast.makeText(getApplicationContext(), "Enrol Key: " + key , Toast.LENGTH_SHORT).show();
+
+            final FirebaseUser user = mFirebaseAuth.getCurrentUser();
+//            key = getArguments().getString("subjectKey");
+//            subjectName = getArguments().getString("subjectName");
+//            teacherName = getArguments().getString("subjectTeacher");
+//            subjectRoom = getArguments().getString("subjectRoom");
+//            subjectStart = getArguments().getString("subjectTimeStart");
+//            subjectEnd = getArguments().getString("subjectTimeEnd");
+//            subjectDate = getArguments().getString("subjectDate");
+//            Toast.makeText(getApplicationContext(), "Enrol Key: " + key, Toast.LENGTH_SHORT).show();
             //fragment_attendees for the subjects
 
 
-
-            final Query query = mDataReference.child("Class").child(user.getUid()).child("subjectKey");
+//            final Query query = mDataReference.child("Class").orderByKey().equalTo(key);
+//            mDataReference
+                    Query query = mDataReference.child("Users")
+                    .child(user.getUid())
+                    .child("MyClasses").orderByKey();
             query.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    if (dataSnapshot.exists()) {
-
-                            if (dataSnapshot.getValue().equals(sm.getSubjectKey())) {
-
-                                query.addChildEventListener(new ChildEventListener() {
-                                    @Override
-                                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                                    }
-
-                                    @Override
-                                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                                    }
-
-                                    @Override
-                                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                                    }
-
-                                    @Override
-                                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Invalid enrollment key!", Toast.LENGTH_SHORT).show();
-                            }
-
-
+                    if(dataSnapshot.exists()) {
+                        mc = dataSnapshot.getValue(MyClassModel.class);
+                        if(user.getUid().equals(mc.getUserID()))
+                        classes.add(mc);
+                        mAdapter.notifyDataSetChanged();
                     }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), "bullshit", Toast.LENGTH_SHORT).show();
+                    }
+
+
                 }
 
                 @Override
@@ -145,10 +133,7 @@ public class MyClassesFragment extends Fragment {
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
-
-
             });
-        }
 
         return view;
     }

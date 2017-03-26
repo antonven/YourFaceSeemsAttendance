@@ -13,11 +13,12 @@ public class MyClassModel {
     private String subjectTimeEnd;
     private String subjectDate;
     private String subjectKey;
+    private String userID;
 
     public MyClassModel() {
     }
 
-    public MyClassModel(String subjectName, String subjectRoom, String subjectTeacher, String subjectTimeStart, String subjectTimeEnd, String subjectDate, String subjectKey) {
+    public MyClassModel(String subjectName, String subjectRoom, String subjectTeacher, String subjectTimeStart, String subjectTimeEnd, String subjectDate, String subjectKey, String userID) {
         this.subjectName = subjectName;
         this.subjectRoom = subjectRoom;
         this.subjectTeacher = subjectTeacher;
@@ -25,6 +26,7 @@ public class MyClassModel {
         this.subjectTimeEnd = subjectTimeEnd;
         this.subjectDate = subjectDate;
         this.subjectKey = subjectKey;
+        this.userID = userID;
     }
 
     public String getSubjectName() {
@@ -81,5 +83,13 @@ public class MyClassModel {
 
     public void setSubjectKey(String subjectKey) {
         this.subjectKey = subjectKey;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 }
