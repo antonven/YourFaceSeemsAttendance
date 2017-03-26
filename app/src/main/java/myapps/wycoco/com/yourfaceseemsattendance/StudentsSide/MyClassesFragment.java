@@ -3,6 +3,7 @@ package myapps.wycoco.com.yourfaceseemsattendance.StudentsSide;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import myapps.wycoco.com.yourfaceseemsattendance.Adapters.MyClassesAdapter;
 import myapps.wycoco.com.yourfaceseemsattendance.Adapters.SubjectsAdapter;
@@ -37,17 +39,16 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  */
 public class MyClassesFragment extends Fragment {
 
-    SubjectModel sm;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDataReference;
     private FirebaseAuth mFirebaseAuth;
-
+    CardView cardView;
     MyClassModel mc;
     ArrayList<MyClassModel> classes = new ArrayList<>();
     ArrayList<SubjectModel> subjects = new ArrayList<>();
     RecyclerView recyclerview;
     MyClassesAdapter mAdapter;
-    String key, subjectName, teacherName, subjectDate, subjectStart, subjectEnd,  subjectRoom;
+
 
     public MyClassesFragment() {
         // Required empty public constructor
@@ -66,8 +67,10 @@ public class MyClassesFragment extends Fragment {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDataReference = mDatabase.getReference();
 
+        Calendar calendar = Calendar.getInstance();
+        final String time = calendar.getTime().toString();
 
-
+        cardView = (CardView)view.findViewById(R.id.classCard);
 
         recyclerview = (RecyclerView)view.findViewById(R.id.recyclerViewMyClasses);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(getApplicationContext());
@@ -77,26 +80,13 @@ public class MyClassesFragment extends Fragment {
         mAdapter = new MyClassesAdapter(getApplicationContext(), classes);
         recyclerview.setAdapter(mAdapter);
 
-//        if(getArguments() != null)
-
 
             final FirebaseUser user = mFirebaseAuth.getCurrentUser();
-//            key = getArguments().getString("subjectKey");
-//            subjectName = getArguments().getString("subjectName");
-//            teacherName = getArguments().getString("subjectTeacher");
-//            subjectRoom = getArguments().getString("subjectRoom");
-//            subjectStart = getArguments().getString("subjectTimeStart");
-//            subjectEnd = getArguments().getString("subjectTimeEnd");
-//            subjectDate = getArguments().getString("subjectDate");
-//            Toast.makeText(getApplicationContext(), "Enrol Key: " + key, Toast.LENGTH_SHORT).show();
-            //fragment_attendees for the subjects
 
-
-//            final Query query = mDataReference.child("Class").orderByKey().equalTo(key);
-//            mDataReference
-                    Query query = mDataReference.child("Users")
-                    .child(user.getUid())
-                    .child("MyClasses").orderByKey();
+            //Query all the enrolled classes.
+            Query query = mDataReference.child("Users")
+            .child(user.getUid())
+            .child("MyClasses").orderByKey();
             query.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -105,13 +95,12 @@ public class MyClassesFragment extends Fragment {
                         if(user.getUid().equals(mc.getUserID()))
                         classes.add(mc);
                         mAdapter.notifyDataSetChanged();
+
                     }
                     else
                     {
-                        Toast.makeText(getApplicationContext(), "bullshit", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "No shit", Toast.LENGTH_SHORT).show();
                     }
-
-
                 }
 
                 @Override

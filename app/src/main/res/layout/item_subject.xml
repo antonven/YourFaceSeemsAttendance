@@ -45,15 +45,16 @@
                 android:id="@+id/subjectRoom"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/subjectName"
-                android:layout_marginLeft="2dp"
-                android:layout_marginTop="10px"
-                android:layout_toRightOf="@+id/subjectTeacher"
+                android:layout_toRightOf="@+id/subjectKey"
+                android:layout_below="@+id/timeStart"
+                android:layout_alignBaseline="@+id/subjectKey"
+                android:layout_alignLeft="@+id/subjectDate"
+
                 android:text="BCL 5" />
 
             <TextView
                 android:id="@+id/subjectDate"
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/subjectName"
                 android:layout_alignParentRight="true"

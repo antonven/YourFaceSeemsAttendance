@@ -49,7 +49,7 @@ public class AttendeesAdapter extends RecyclerView.Adapter<AttendeesAdapter.View
     @Override
     public void onBindViewHolder(AttendeesAdapter.ViewHolder holder, int position) {
 
-        firebaseDatabase = firebaseDatabase.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = firebaseDatabase.getReference();
 
         Glide.with(mContext).using(new FirebaseImageLoader()).load(photoRef.get(position)).into(holder.attendeePicture);

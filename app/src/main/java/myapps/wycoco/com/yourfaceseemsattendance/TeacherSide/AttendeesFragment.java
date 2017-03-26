@@ -1,6 +1,7 @@
 package myapps.wycoco.com.yourfaceseemsattendance.TeacherSide;
 
 
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -20,7 +21,7 @@ import myapps.wycoco.com.yourfaceseemsattendance.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AttendeesFragment extends Fragment {
+public class AttendeesFragment extends DialogFragment {
 
     RecyclerView recView;
     ArrayList<StudentModel> sm = new ArrayList<>();
@@ -45,8 +46,12 @@ public class AttendeesFragment extends Fragment {
 
         mAdapter = new AttendeesAdapter(getActivity(), sm);
         recView.setAdapter(mAdapter);
-
         mAdapter.notifyDataSetChanged();
+
+
+
+
+
 
 
         return view;

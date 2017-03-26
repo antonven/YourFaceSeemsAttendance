@@ -8,7 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import myapps.wycoco.com.yourfaceseemsattendance.Models.MyClassModel;
 import myapps.wycoco.com.yourfaceseemsattendance.R;
@@ -57,6 +60,10 @@ public class MyClassesAdapter extends RecyclerView.Adapter<MyClassesAdapter.View
         public ViewHolder(View itemView) {
             super(itemView);
 
+            SimpleDateFormat sdf = new SimpleDateFormat("kk:mm");
+            Calendar calendar = Calendar.getInstance();
+            final String time = calendar.getTime().toString();
+
             subName = (TextView) itemView.findViewById(R.id.subjectName);
             subRoom = (TextView) itemView.findViewById(R.id.subjectRoom);
             subTeacher = (TextView) itemView.findViewById(R.id.subjectTeacher);
@@ -65,6 +72,24 @@ public class MyClassesAdapter extends RecyclerView.Adapter<MyClassesAdapter.View
             subDate = (TextView) itemView.findViewById(R.id.subjectDate);
             subKey = (TextView) itemView.findViewById(R.id.subjectKey);
             classCard = (CardView)itemView.findViewById(R.id.classCard);
+            classCard.setEnabled(false);
+
+//            try {
+//                Date currentTime = calendar.getTime();
+//                if(currentTime.compareTo(classes.get(getAdapterPosition()).getSubjectTimeStart()))
+//                    classCard.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            if (Long.parseLong(time) >= Long.parseLong(classes.get(getAdapterPosition()).getSubjectTimeStart())) {
+//                                classCard.setEnabled(true);
+//                            } else if (Long.parseLong(time) < Long.parseLong(classes.get(getAdapterPosition()).getSubjectTimeStart())) {
+//                                classCard.setEnabled(false);
+//                            }
+//                        }
+//                    });
+//            }catch(Exception e){
+//                e.printStackTrace();
+//            }
         }
     }
 }

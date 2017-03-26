@@ -1,6 +1,7 @@
 package myapps.wycoco.com.yourfaceseemsattendance.Adapters;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -32,6 +33,7 @@ import myapps.wycoco.com.yourfaceseemsattendance.Models.MyClassModel;
 import myapps.wycoco.com.yourfaceseemsattendance.Models.SubjectModel;
 import myapps.wycoco.com.yourfaceseemsattendance.R;
 import myapps.wycoco.com.yourfaceseemsattendance.StudentsSide.MyClassesFragment;
+import myapps.wycoco.com.yourfaceseemsattendance.TeacherSide.AttendeesFragment;
 
 /**
  * Created by dell on 3/19/2017.
@@ -119,6 +121,7 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHo
                             }
                             else {
                                 if(dataSnapshot.getValue().toString().equals("Teacher")) {
+                                    DialogFragment df = new AttendeesFragment();
 
                                 }
                                 else if (dataSnapshot.getValue().toString().equals("Student")) {
@@ -141,7 +144,8 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHo
                                             String subjectEnd = subjects.get(getAdapterPosition()).getSubjectTimeEnd();
                                             String subjectDate =  subjects.get(getAdapterPosition()).getSubjectDate();
                                             String userID = user.getUid();
-                                            MyClassModel mc = new MyClassModel(subjectName, subjectRoom, subjectTeacher, subujectStart, subjectEnd, subjectDate, subjectKey, userID);
+                                            MyClassModel mc =
+                                                    new MyClassModel(subjectName, subjectRoom, subjectTeacher, subujectStart, subjectEnd, subjectDate, subjectKey, userID);
 
                                             if(text.equals(subjects.get(getAdapterPosition()).getSubjectKey())) {
                                                 dr.child("Users").child(user.getUid()).child("MyClasses").push().setValue(mc);
@@ -150,7 +154,6 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHo
                                             else{
                                                 Toast.makeText(itemView.getContext(), "Enrollment key invalid!", Toast.LENGTH_SHORT).show();
                                             }
-
                                         }
                                     });
                                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
