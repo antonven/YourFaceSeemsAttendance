@@ -1,5 +1,7 @@
 package myapps.wycoco.com.yourfaceseemsattendance.Adapters;
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -14,10 +16,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import myapps.wycoco.com.yourfaceseemsattendance.Models.MyClassModel;
 import myapps.wycoco.com.yourfaceseemsattendance.Models.SubjectModel;
 import myapps.wycoco.com.yourfaceseemsattendance.R;
 import myapps.wycoco.com.yourfaceseemsattendance.StudentsSide.MyClassesFragment;
@@ -32,6 +40,10 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHo
     private Context mContext;
     private ArrayList<SubjectModel> subjects;
     private FirebaseDatabase fireBaseDatabase;
+    private DatabaseReference dr;
+    private FirebaseAuth mAuth;
+
+    Query query;
 //    private DatabaseReference reference = fireBaseDatabase.getReference().chil/zd("Class") ;
 
     String text;
@@ -42,6 +54,9 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHo
         this.subjects = subjects;
     }
 
+    public SubjectModel getItem(int position){
+        return subjects.get(position);
+    }
 
     @Override
     public SubjectsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -67,6 +82,8 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHo
         return subjects.size();
     }
 
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView subName, subRoom, subTeacher, subStart, subEnd, subDate, subKey;
@@ -86,9 +103,16 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHo
             classCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                        mContext = itemView.getContext();
+                    mAuth = FirebaseAuth.getInstance();
+                    fireBaseDatabase = FirebaseDatabase.getInstance();
+                    dr = fireBaseDatabase.getReference();
+                    final FirebaseUser user = mAuth.getCurrentUser();
+
+
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-                    builder.setTitle("Enrollment key");
+                    builder.setTitle("Do you want to enroll in this subject?");
                     final EditText enrollKey = new EditText(itemView.getContext());
                     enrollKey.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
                     builder.setView(enrollKey);
@@ -96,11 +120,19 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHo
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            Bundle args = new Bundle();
-                            text = enrollKey.getText().toString();
-                            args.putString("enrollKey", text);
+//                            Bundle args = new Bundle();
+                              text = enrollKey.getText().toString();
+//                            args.putString("enrollKey", text);
+//                            fs.setArguments(args);
+//                          g
+
+                            ArrayList<MyClassModel> mc = new ArrayList<>();
+
+                            dr.child("Class").child(user.getUid()).child("subjectKey").setValue(text);
+
                             MyClassesFragment fs = new MyClassesFragment();
-                            fs.setArguments(args);
+                            FragmentManager fm = ((Activity)mContext).getFragmentManager();
+                            fm.beginTransaction().add(R.id.frameClasses, fs).commit();
 
                             Toast.makeText(itemView.getContext(), "Subject added to My Classes!", Toast.LENGTH_SHORT).show();
 
@@ -116,20 +148,15 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHo
 
                     builder.show();
 
-
-
-
-
-
                 }
             });
-
-
-
         }
+
     }
 
-//    public void showDialog(){
+
+
+    //    public void showDialog(){
 //        DialogFragment df = new AttendeesFragment().insta
 //    }
 

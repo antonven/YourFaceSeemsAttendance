@@ -1,4 +1,4 @@
-package myapps.wycoco.com.yourfaceseemsattendance;
+package myapps.wycoco.com.yourfaceseemsattendance.FaceDetector;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

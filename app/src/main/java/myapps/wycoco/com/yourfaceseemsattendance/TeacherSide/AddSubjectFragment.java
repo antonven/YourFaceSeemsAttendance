@@ -1,8 +1,7 @@
-package myapps.wycoco.com.yourfaceseemsattendance;
+package myapps.wycoco.com.yourfaceseemsattendance.TeacherSide;
 
 
 import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -23,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import myapps.wycoco.com.yourfaceseemsattendance.Models.SubjectModel;
+import myapps.wycoco.com.yourfaceseemsattendance.R;
 
 
 /**
@@ -36,12 +36,9 @@ public class AddSubjectFragment extends Fragment{
     }
     FirebaseDatabase database;
     DatabaseReference reference;
-    int year, month, day;
     EditText subjectName, subjectTimeStart,  subjectRoom, subjectKey, subjectTimeEnd;
     TextView subjectDate;
     Button addSubject;
-    TimePicker time, date;
-    ArrayList<SubjectModel> subjects;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -49,10 +46,9 @@ public class AddSubjectFragment extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_subject, container,false);
 
-        final Calendar calendar = Calendar.getInstance();
 
         database = FirebaseDatabase.getInstance();
-        reference = database.getReference().child("Class");
+        reference = database.getReference();
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
         subjectName = (EditText)view.findViewById(R.id.subjectName);
@@ -64,16 +60,26 @@ public class AddSubjectFragment extends Fragment{
         addSubject = (Button)view.findViewById(R.id.addSubjectBtn);
 
 
-
-
-
-        subjectTimeStart.setOnClickListener(new View.OnClickListener() {
+        subjectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DialogFragment dateFrag = new DatePickerFragment();
                 dateFrag.show(getFragmentManager(), "hey");
+            }
+        });
 
-
+        subjectTimeStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment timeFrag = new TimePickerFragment();
+                timeFrag.show(getFragmentManager(), "hoy");
+            }
+        });
+        subjectTimeEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment timeFrag = new TimePickerFragment();
+                timeFrag.show(getFragmentManager(), "wow");
             }
         });
 
@@ -82,6 +88,8 @@ public class AddSubjectFragment extends Fragment{
             FirebaseUser user = firebaseAuth.getCurrentUser();
             @Override
             public void onClick(View view) {
+
+
                 String subName = subjectName.getText().toString();
                 String roomNum = subjectRoom.getText().toString();
                 String subteacher = user.getDisplayName();
@@ -92,8 +100,7 @@ public class AddSubjectFragment extends Fragment{
 
                 //add tanan values sa firebase
                 SubjectModel sm = new SubjectModel(subName, roomNum, subteacher, tStart, tEnd, date, skey);
-                reference.push().setValue(sm);
-
+                reference.child("Class").push().setValue(sm);
                 startActivity(new Intent(getActivity(), TeacherActivity.class));
             }
         });

@@ -1,7 +1,9 @@
-package myapps.wycoco.com.yourfaceseemsattendance;
+package myapps.wycoco.com.yourfaceseemsattendance.TeacherSide;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import myapps.wycoco.com.yourfaceseemsattendance.R;
 
 public class TeacherSubject extends AppCompatActivity {
 

@@ -14,11 +14,13 @@ import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
@@ -59,7 +61,7 @@ public class MyClassesFragment extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mDataReference = mDatabase.getReference("Class");
+        mDataReference = mDatabase.getReference();
 
 
 
@@ -75,23 +77,50 @@ public class MyClassesFragment extends Fragment {
         if(key != null)
 
         {
+            FirebaseUser user = mFirebaseAuth.getCurrentUser();
             key = getArguments().getString("enrollKey");
+            Toast.makeText(getApplicationContext(), "Enrol Key: " + key , Toast.LENGTH_SHORT).show();
             //fragment_attendees for the subjects
-            mDataReference.addChildEventListener(new ChildEventListener() {
 
+
+
+            final Query query = mDataReference.child("Class").child(user.getUid()).child("subjectKey");
+            query.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     if (dataSnapshot.exists()) {
-                        sm = dataSnapshot.getValue(SubjectModel.class);
 
-                            if (key.equals(sm.getSubjectKey())) {
-                                subjects.add(sm);
-                                Log.e("dd", "" + sm.getSubjectName());
-                                mAdapter.notifyDataSetChanged();
+                            if (dataSnapshot.getValue().equals(sm.getSubjectKey())) {
+
+                                query.addChildEventListener(new ChildEventListener() {
+                                    @Override
+                                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
                             } else {
                                 Toast.makeText(getApplicationContext(), "Invalid enrollment key!", Toast.LENGTH_SHORT).show();
                             }
-
 
 
                     }

@@ -33,17 +33,17 @@
         </provider>
 
 
-        <activity android:name=".LoginActivity">
+        <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TeacherSubject" />
-        <activity android:name=".TeacherActivity" />
+        <activity android:name=".TeacherSide.TeacherSubject" />
+        <activity android:name=".TeacherSide.TeacherActivity" />
         <activity android:name=".StudentsSide.StudentsActivity"/>
-        <activity android:name=".FaceDetectorActivity" />
+        <activity android:name=".FaceDetector.FaceDetectorActivity" />
 
     </application>
 

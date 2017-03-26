@@ -9,7 +9,7 @@
     android:id="@+id/classCard"
     android:layout_margin="10dp"
     android:elevation="10dp"
-    tools:context="myapps.wycoco.com.yourfaceseemsattendance.TeacherSubject">
+    tools:context="myapps.wycoco.com.yourfaceseemsattendance.TeacherSide.TeacherSubject">
 
     <FrameLayout
         android:layout_width="match_parent"

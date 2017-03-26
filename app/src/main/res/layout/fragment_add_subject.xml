@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/frame3"
     android:background="@color/ampm_text_color"
-    tools:context="myapps.wycoco.com.yourfaceseemsattendance.AddSubjectFragment">
+    tools:context="myapps.wycoco.com.yourfaceseemsattendance.TeacherSide.AddSubjectFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout

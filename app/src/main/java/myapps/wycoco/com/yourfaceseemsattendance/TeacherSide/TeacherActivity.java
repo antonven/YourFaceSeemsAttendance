@@ -1,6 +1,5 @@
-package myapps.wycoco.com.yourfaceseemsattendance;
+package myapps.wycoco.com.yourfaceseemsattendance.TeacherSide;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -13,10 +12,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,7 +27,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import myapps.wycoco.com.yourfaceseemsattendance.Adapters.SubjectsAdapter;
+import myapps.wycoco.com.yourfaceseemsattendance.Login.LoginActivity;
 import myapps.wycoco.com.yourfaceseemsattendance.Models.SubjectModel;
+import myapps.wycoco.com.yourfaceseemsattendance.R;
 
 public class TeacherActivity extends AppCompatActivity {
 
@@ -61,7 +60,7 @@ public class TeacherActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mDataReference = mDatabase.getReference("Class");
+        mDataReference = mDatabase.getReference().child("Class");
 
 
         floatingButton = (FloatingActionButton)findViewById(R.id.floatingActionButton);

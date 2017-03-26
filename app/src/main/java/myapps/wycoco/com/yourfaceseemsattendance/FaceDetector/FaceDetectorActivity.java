@@ -1,4 +1,4 @@
-package myapps.wycoco.com.yourfaceseemsattendance;
+package myapps.wycoco.com.yourfaceseemsattendance.FaceDetector;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -36,6 +36,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import myapps.wycoco.com.yourfaceseemsattendance.R;
 
 /**
  * Created by Lenovo on 3/25/2017.

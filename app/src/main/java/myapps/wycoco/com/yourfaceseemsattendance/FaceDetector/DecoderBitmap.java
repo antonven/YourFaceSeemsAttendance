@@ -1,4 +1,4 @@
-package myapps.wycoco.com.yourfaceseemsattendance;
+package myapps.wycoco.com.yourfaceseemsattendance.FaceDetector;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;

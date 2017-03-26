@@ -1,4 +1,4 @@
-package myapps.wycoco.com.yourfaceseemsattendance;
+package myapps.wycoco.com.yourfaceseemsattendance.TeacherSide;
 
 
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import myapps.wycoco.com.yourfaceseemsattendance.Adapters.AttendeesAdapter;
 import myapps.wycoco.com.yourfaceseemsattendance.Models.StudentModel;
+import myapps.wycoco.com.yourfaceseemsattendance.R;
 
 
 /**

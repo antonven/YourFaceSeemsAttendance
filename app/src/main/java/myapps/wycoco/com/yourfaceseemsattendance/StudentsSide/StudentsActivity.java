@@ -11,8 +11,7 @@ import android.view.MenuItem;
 
 import com.firebase.ui.auth.AuthUI;
 
-import myapps.wycoco.com.yourfaceseemsattendance.LoginActivity;
-import myapps.wycoco.com.yourfaceseemsattendance.LoginFragment;
+import myapps.wycoco.com.yourfaceseemsattendance.Login.LoginActivity;
 import myapps.wycoco.com.yourfaceseemsattendance.R;
 
 public class StudentsActivity extends AppCompatActivity {
